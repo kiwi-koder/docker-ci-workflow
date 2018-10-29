@@ -7,3 +7,16 @@ before_install:
 
 script:
     - docker run joshuarippon/docker-ci-workflow npm run test -- --coverage
+
+deploy:
+    provider: elasticbeanstalk
+    region: "us-east-2"
+    app: "docker-ci-workflow"
+    env: "DockerCiWorkflow-env"
+    bucket_name: "elasticbeanstalk-us-east-2-711541063118"
+    bucket_path: "docker-ci-workflow"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key:
+        secure: "$AWS_SECRET_KEY"
